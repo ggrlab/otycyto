@@ -34,7 +34,6 @@ def display_cloud_mapping(
     v: ArrayLike | None = None,
     color_mapping: str = "#5BBF3AAA",
     npoints: int | None = None,
-    *scatter_args: Any,
     **scatter_kwargs: Any,
 ) -> tuple[PathCollection, Quiver | None]:
     """
@@ -109,7 +108,6 @@ def display_cloud_mapping(
         x_np[:, y_i],
         c=color,
         edgecolors="none",
-        *scatter_args,
         **scatter_kwargs,
     )
 

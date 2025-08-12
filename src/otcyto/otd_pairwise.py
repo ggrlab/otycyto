@@ -57,14 +57,10 @@ class OTDPairwise:
         self.sources = sources
         self.targets = targets
         self.sources_names: list[str] = (
-            sources_names
-            if sources_names is not None
-            else [f"sample_{i}" for i in range(len(self.sources))]
+            sources_names if sources_names is not None else [f"sample_{i}" for i in range(len(self.sources))]
         )
         self.targets_names: list[str] = (
-            targets_names
-            if targets_names is not None
-            else [f"sample_{i}" for i in range(len(self.targets))]
+            targets_names if targets_names is not None else [f"sample_{i}" for i in range(len(self.targets))]
         )
 
         if len(self.sources) != len(self.sources_names):
@@ -84,9 +80,7 @@ class OTDPairwise:
         self._otd_vals = torch.zeros((ns, nt), dtype=torch.float32)
 
         # Brenier map cache; a list-of-lists holding torch.Tensors or None.
-        self._brenier_maps: list[list[TensorLike | None]] = [
-            [None for _ in range(nt)] for _ in range(ns)
-        ]
+        self._brenier_maps: list[list[TensorLike | None]] = [[None for _ in range(nt)] for _ in range(ns)]
         self._otd_calculated: bool = False
 
         # Validate tensor shapes/dtypes/devices early to avoid cryptic errors later.
@@ -158,11 +152,7 @@ class OTDPairwise:
                 # Skip the pair if skipping_fun returns True
                 if self._skipping_fun(source_i, target_j):
                     if self.verbose:
-                        print(
-                            f"Skipping {self.sources_names[source_i]}"
-                            + " -> "
-                            + f"{self.targets_names[target_j]}"
-                        )
+                        print(f"Skipping {self.sources_names[source_i]}" + " -> " + f"{self.targets_names[target_j]}")
                     continue
                 if self.verbose:
                     print(
@@ -208,9 +198,7 @@ class OTDPairwise:
 
         self._otd_calculated = True
 
-    def single_brenier(
-        self, source: torch.Tensor, target: torch.Tensor
-    ) -> tuple[Any, torch.Tensor]:
+    def single_brenier(self, source: torch.Tensor, target: torch.Tensor) -> tuple[Any, torch.Tensor]:
         """Calculate the Brenier map for a given source and target.
 
         Args:
@@ -249,16 +237,12 @@ class OTDPairwise:
             TensorLike: The Brenier map tensor for the specified pair.
         """
         if not self._otd_calculated:
-            raise RuntimeError(
-                "OTD must be computed before accessing Brenier maps. Call `.compute()` first."
-            )
+            raise RuntimeError("OTD must be computed before accessing Brenier maps. Call `.compute()` first.")
 
         br_map = self._brenier_maps[source_i][target_j]
         if br_map is None:
             # Recompute if not cached
-            _, br_map = self.single_brenier(
-                source=self.sources[source_i], target=self.targets[target_j]
-            )
+            _, br_map = self.single_brenier(source=self.sources[source_i], target=self.targets[target_j])
         return br_map
 
     # ----------------------------- Plotting --------------------------------------
