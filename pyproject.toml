@@ -1,9 +1,45 @@
+[project]
+name = "otcyto"
+dynamic = ["version"]
+description = "Optimal transport for cytometry data"
+readme = "README.rst"
+requires-python = ">=3.11"
+authors = [{ name = "gunthergl_r2", email = "gunthergl@gmx.net" }]
+license = { text = "MIT" }
+# Runtime deps (moved from setup.cfg)
+dependencies = [
+    "matplotlib",
+    "pykeops",
+    "torch",
+    "geomloss",
+    "pandas",
+    "pyarrow",
+    # No need for importlib-metadata on 3.11+; uv will handle markers if you keep it.
+]
+
+[project.optional-dependencies]
+testing = ["setuptools", "pytest", "pytest-cov"]
+dev = ["ruff", "mypy", "pre-commit"]
+
 [build-system]
-# AVOID CHANGING REQUIRES: IT WILL BE UPDATED BY PYSCAFFOLD!
-requires = ["setuptools>=46.1.0", "setuptools_scm[toml]>=5"]
+requires = ["setuptools>=70", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
-# For smarter version schemes and other configuration options,
-# check out https://github.com/pypa/setuptools_scm
 version_scheme = "no-guess-dev"
+
+# Tell setuptools about the src/ layout (moved from setup.cfg)
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# Pytest config (moved from setup.cfg)
+[tool.pytest.ini_options]
+addopts = "-q --cov=otcyto --cov-report=term-missing --verbose"
+testpaths = ["tests"]
+norecursedirs = ["dist", "build", ".tox"]
+
+# Ruff (optional)
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+lint.select = ["E", "F", "I", "B", "UP"]
