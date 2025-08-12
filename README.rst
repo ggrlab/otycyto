@@ -40,6 +40,54 @@ otcyto
 A longer description of your project goes here...
 
 
+Package setup
+=============
+
+This project has been set up using PyScaffold 4.4. For details and usage
+information on PyScaffold see https://pyscaffold.org/
+
+.. code-block:: bash
+
+    pip install --upgrade pyscaffold
+    putup otcyto
+    cd otcyto
+    # Create otcyto within gitlab, without README
+    git branch -m master main
+    git remote add origin git@github.com:ggrlab/otycyto
+    git push -u origin --all
+
+    # add-apt-repository ppa:deadsnakes/ppa
+    # apt install python3.11
+
+    #  Use uv-managed virtualenv
+    # uv sync  --python /bin/python3.11
+
+    # (Optional) Add deps with uv (writes to pyproject.toml) to testing:
+    uv add --dev pytest ruff pytest-cov pre-commit
+    # Use pre-commit:
+    # https://docs.astral.sh/uv/guides/integration/pre-commit/
+
+    uv sync  --python /bin/python3.11  # or whatever python you want to use.
+    # Using your default python:
+    # uv sync
+    uv run pre-commit run --all-files
+    uv run pre-commit autoupdate
+    # uv sync including test dependencies:
+
+
+    # Run common tasks via uv
+    uv run pytest                # tests
+    uv build                     # build sdist/wheel when ready to publish
+    # uv publish  # to publish on pypi
+
+    # Pre-commit with Ruff via PyScaffold extension
+    # If you haven’t used the extension on creation:
+    pipx run pyscaffold putup --update . --pre-commit-ruff
+    pre-commit install
+    pre-commit autoupdate
+
+
+
 .. _pyscaffold-notes:
 
 Note
