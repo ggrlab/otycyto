@@ -5,7 +5,7 @@ import numpy as np
 import torch
 
 
-def create_sphere(n_samples=1000, use_cuda=True):
+def create_sphere(n_samples: int | float = 1000, use_cuda: bool = True):
     """Creates a uniform sample on the unit sphere.
 
     Args:
