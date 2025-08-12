@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from typing import Any
 
 import numpy as np
@@ -37,7 +35,7 @@ def display_cloud_mapping(
     color_mapping: str = "#5BBF3AAA",
     npoints: int | None = None,
     *scatter_args: Any,
-    **scatter_kwargs: dict[str, Any],
+    **scatter_kwargs: Any,
 ) -> tuple[PathCollection, Quiver | None]:
     """
     Scatter a 2D projection of a point cloud and optionally plot a vector field.

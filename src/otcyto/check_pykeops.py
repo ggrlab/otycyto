@@ -7,8 +7,8 @@ from otcyto.otd_pairwise import OTDPairwise
 def check_pykeops():
     from geomloss import SamplesLoss
 
-    source = create_sphere(10)[0]  # 0 element is the pointcloud
-    target = create_sphere(10)[0] + 1  # 0 element is the pointcloud
+    source = create_sphere(2)[0]  # 0 element is the pointcloud
+    target = create_sphere(2)[0] + 1  # 0 element is the pointcloud
 
     # tensorized must always work
     otdPW = OTDPairwise(
@@ -17,7 +17,7 @@ def check_pykeops():
         loss=SamplesLoss(loss="sinkhorn", p=2, blur=1e-7, scaling=0.99, backend="tensorized"),
     )
     otdPW.compute()
-    assert otdPW._otd_calculated, "Tensorized version MUST work, why doesn't it?"
+    assert otdPW._otd_calculated, "Tensorized version MUST work, why doesn't it?"  # pyright: ignore[reportPrivateUsage]
 
     otdPW = OTDPairwise(
         [source],
@@ -25,7 +25,7 @@ def check_pykeops():
         loss=SamplesLoss(loss="sinkhorn", p=2, blur=1e-7, scaling=0.99, backend="online"),
     )
     otdPW.compute()
-    assert otdPW._otd_calculated, "'online' doesnt work, did you properly install pykeops?"
+    assert otdPW._otd_calculated, "'online' doesnt work, did you properly install pykeops?"  # pyright: ignore[reportPrivateUsage]
 
     otdPW = OTDPairwise(
         [source],
@@ -33,7 +33,7 @@ def check_pykeops():
         loss=SamplesLoss(loss="sinkhorn", p=2, blur=1e-7, scaling=0.99, backend="multiscale"),
     )
     otdPW.compute()
-    assert otdPW._otd_calculated, "'online' doesnt work, did you properly install pykeops?"
+    assert otdPW._otd_calculated, "'multiscale' doesnt work, did you properly install pykeops?"  # pyright: ignore[reportPrivateUsage]
 
     # https://www.kernel-operations.io/keops/python/installation.html#testing-your-installation
     pykeops.test_numpy_bindings()

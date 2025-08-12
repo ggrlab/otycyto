@@ -4,10 +4,12 @@ import pandas as pd
 import torch
 
 
-def load_files_recursive(data_dir: Path, verbose: bool = False, suffix: str = ".csv"):
+def load_files_recursive(
+    data_dir: Path, verbose: bool = False, suffix: str = ".csv"
+) -> tuple[list[torch.Tensor], list[str]]:
     data_dir = Path(data_dir)
-    dataset = []
-    dataset_names = []
+    dataset: list[torch.Tensor] = []
+    dataset_names: list[str] = []
     # Traverse the directory and load all the files
     for filename in data_dir.rglob(f"*{suffix}"):
         if filename.is_dir():
