@@ -17,10 +17,6 @@ dependencies = [
     # No need for importlib-metadata on 3.11+; uv will handle markers if you keep it.
 ]
 
-[project.optional-dependencies]
-testing = ["setuptools", "pytest", "pytest-cov"]
-dev = ["ruff", "mypy", "pre-commit"]
-
 [build-system]
 requires = ["setuptools>=70", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
@@ -43,3 +39,14 @@ norecursedirs = ["dist", "build", ".tox"]
 line-length = 100
 target-version = "py311"
 lint.select = ["E", "F", "I", "B", "UP"]
+
+# https://docs.astral.sh/uv/concepts/projects/sync/#syncing-development-dependencies
+# Within dependency-groups, "dev" is installed by default.
+[dependency-groups]
+dev = [
+    "pre-commit>=4.3.0",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "ruff>=0.12.8",
+    "pre-commit>=4.3.0",
+]
