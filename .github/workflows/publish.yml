@@ -12,11 +12,6 @@ jobs:
   run:
     name: "Build and publish release"
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/<your-pypi-project-name>
-    permissions:
-      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - uses: actions/checkout@v4
 
