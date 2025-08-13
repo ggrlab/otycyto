@@ -1,28 +1,3 @@
-.. todo:: THIS IS SUPPOSED TO BE AN EXAMPLE. MODIFY IT ACCORDING TO YOUR NEEDS!
-
-   The document assumes you are using a source repository service that promotes a
-   contribution model similar to `GitHub's fork and pull request workflow`_.
-   While this is true for the majority of services (like GitHub, GitLab,
-   BitBucket), it might not be the case for private repositories (e.g., when
-   using Gerrit).
-
-   Also notice that the code examples might refer to GitHub URLs or the text
-   might use GitHub specific terminology (e.g., *Pull Request* instead of *Merge
-   Request*).
-
-   Please make sure to check the document having these assumptions in mind
-   and update things accordingly.
-
-.. todo:: Provide the correct links/replacements at the bottom of the document.
-
-.. todo:: You might want to have a look on `PyScaffold's contributor's guide`_,
-
-   especially if your project is open source. The text should be very similar to
-   this template, but there are a few extra contents that you might decide to
-   also include, like mentioning labels of your issue tracker or automated
-   releases.
-
-
 ============
 Contributing
 ============
@@ -33,21 +8,11 @@ This document focuses on getting any potential contributor familiarized
 with the development processes, but `other kinds of contributions`_ are also
 appreciated.
 
-If you are new to using git_ or have never collaborated in a project previously,
-please have a look at `contribution-guide.org`_. Other resources are also
-listed in the excellent `guide created by FreeCodeCamp`_ [#contrib1]_.
-
-Please notice, all users and contributors are expected to be **open,
-considerate, reasonable, and respectful**. When in doubt, `Python Software
-Foundation's Code of Conduct`_ is a good reference in terms of behavior
-guidelines.
-
-
 Issue Reports
 =============
 
 If you experience bugs or general issues with ``otcyto``, please have a look
-on the `issue tracker`_. If you don't see anything useful there, please feel
+on the `github issues`. If you don't see anything useful there, please feel
 free to fire an issue report.
 
 .. tip::
@@ -68,29 +33,23 @@ Documentation Improvements
 You can help improve ``otcyto`` docs by making them more readable and coherent, or
 by adding missing information and correcting mistakes.
 
-``otcyto`` documentation uses Sphinx_ as its main documentation compiler.
+``otcyto`` documentation uses Sphinx_ as its main documentation compiler and reStructuredText_ as markup language.
 This means that the docs are kept in the same repository as the project code, and
 that any documentation update is done in the same way was a code contribution.
 
-.. todo:: Don't forget to mention which markup language you are using.
+.. tip::
+    Please notice that the `GitHub web interface`_ provides a quick way of
+    propose changes in ``otcyto``'s files. While this mechanism can
+    be tricky for normal code contributions, it works perfectly fine for
+    contributing to the docs, and can be quite handy.
 
-    e.g.,  reStructuredText_ or CommonMark_ with MyST_ extensions.
-
-.. todo:: If your project is hosted on GitHub, you can also mention the following tip:
-
-   .. tip::
-      Please notice that the `GitHub web interface`_ provides a quick way of
-      propose changes in ``otcyto``'s files. While this mechanism can
-      be tricky for normal code contributions, it works perfectly fine for
-      contributing to the docs, and can be quite handy.
-
-      If you are interested in trying this method out, please navigate to
-      the ``docs`` folder in the source repository_, find which file you
-      would like to propose changes and click in the little pencil icon at the
-      top, to open `GitHub's code editor`_. Once you finish editing the file,
-      please write a message in the form at the bottom of the page describing
-      which changes have you made and what are the motivations behind them and
-      submit your proposal.
+    If you are interested in trying this method out, please navigate to
+    the ``docs`` folder in the source repository_, find which file you
+    would like to propose changes and click in the little pencil icon at the
+    top, to open `GitHub's code editor`_. Once you finish editing the file,
+    please write a message in the form at the bottom of the page describing
+    which changes have you made and what are the motivations behind them and
+    submit your proposal.
 
 When working on documentation changes in your local machine, you can
 compile them using |tox|_::

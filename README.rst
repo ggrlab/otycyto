@@ -156,6 +156,12 @@ information on PyScaffold see https://pyscaffold.org/
     pre-commit install
     pre-commit autoupdate
 
+    # Documentation
+    uv add --dev mkdocs mkdocs-material mkdocstrings[python] mkdocs-section-index mkdocs-literate-nav mkdocs-gen-files
+    uv run mkdocs new .
+
+
+    # I did not get act to run properly (2025-08-13)
     # Run the CI locally with act. (pure development)
     wget https://github.com/nektos/act/releases/download/v0.2.80/act_Linux_x86_64.tar.gz
     tar -xzf act_Linux_x86_64.tar.gz
