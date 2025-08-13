@@ -22,11 +22,28 @@ jobs:
           cache-dependency-glob: uv.lock
 
       - name: Set up Python
-        run: uv python install 3.11  # Or whatever version I want to use.
+        run: uv python install 3.11 # Or whatever version I want to use.
 
       - name: Build
         run: uv build
+      - name: Build docs with mkdocs
+        run: uv run mkdocs build
 
+      - name: Upload docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: site
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+
+      # Optional but useful: validate metadata before upload
+      - name: Check package metadata
+        run: uvx twine check dist/*
       - name: Publish
         # The secret needs to be set under https://github.com/ggrlab/otycyto/settings/secrets/actions Repository secrets
         run: uv publish -t ${{ secrets.TESTPYPI_TOKEN }} --publish-url https://test.pypi.org/legacy/

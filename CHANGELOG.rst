@@ -2,9 +2,12 @@
 Changelog
 =========
 
-Version 0.1
+Version 0.0.2
 ===========
 
-- Feature A added
-- FIX: nasty bug #1729 fixed
-- add your changes here!
+- Test release of the package.
+
+Version 0.0.1
+===========
+
+- Test release of the package.

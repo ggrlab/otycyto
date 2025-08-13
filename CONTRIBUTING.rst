@@ -52,38 +52,37 @@ that any documentation update is done in the same way was a code contribution.
     submit your proposal.
 
 When working on documentation changes in your local machine, you can
-compile them using |tox|_::
+compile them using |mkdocs|_::
 
-    tox -e docs
+    uv run mkdocs serve
 
-and use Python's built-in web server for a preview in your web browser
-(``http://localhost:8000``)::
+and preview in your web browser(``http://127.0.0.1:8000/``)
 
-    python3 -m http.server --directory 'docs/_build/html'
-
-
-Code Contributions
-==================
-
-.. todo:: Please include a reference or explanation about the internals of the project.
-
-   An architecture description, design principles or at least a summary of the
-   main concepts will make it easy for potential contributors to get started
-   quickly.
 
 Submit an issue
 ---------------
 
 Before you work on any non-trivial code contribution it's best to first create
-a report in the `issue tracker`_ to start a discussion on the subject.
-This often provides additional considerations and avoids unnecessary work.
+an `issue`.
 
 Create an environment
 ---------------------
 
 Before you start coding, we recommend creating an isolated `virtual
 environment`_ to avoid any problems with your installed Python packages.
-This can easily be done via either |virtualenv|_::
+
+
+I have used `uv` to create a virtual environment, but you can use any other
+tool you prefer, such as |virtualenv|_ or Miniconda_.
+
+To set up the environment with uv, you can run the following command in the root
+directory of the project::
+
+    uv venv
+    uv sync
+
+
+otherwise, can easily be done via either |virtualenv|_::
 
     virtualenv <PATH TO VENV>
     source <PATH TO VENV>/bin/activate
@@ -106,19 +105,8 @@ Clone the repository
 
 #. You should run::
 
-    pip install -U pip setuptools -e .
+    uv sync
 
-   to be able to import the package under development in the Python REPL.
-
-   .. todo:: if you are not using pre-commit, please remove the following item:
-
-#. Install |pre-commit|_::
-
-    pip install pre-commit
-    pre-commit install
-
-   ``otcyto`` comes with a lot of hooks configured to automatically help the
-   developer to check the code being written.
 
 Implement your changes
 ----------------------
@@ -134,38 +122,24 @@ Implement your changes
 
 #. Add yourself to the list of contributors in ``AUTHORS.rst``.
 
-#. When you’re done editing, do::
+#. When you're done editing, do::
 
     git add <MODIFIED FILES>
     git commit
 
    to record your changes in git_.
 
-   .. todo:: if you are not using pre-commit, please remove the following item:
-
    Please make sure to see the validation messages from |pre-commit|_ and fix
    any eventual issues.
-   This should automatically use flake8_/black_ to check/fix the code style
+   This should automatically use ruff_ to check/fix the code style
    in a way that is compatible with the project.
 
    .. important:: Don't forget to add unit tests and documentation in case your
       contribution adds an additional feature and is not just a bugfix.
 
-      Moreover, writing a `descriptive commit message`_ is highly recommended.
-      In case of doubt, you can check the commit history with::
-
-         git log --graph --decorate --pretty=oneline --abbrev-commit --all
-
-      to look for recurring communication patterns.
-
 #. Please check that your changes don't break any unit tests with::
 
-    tox
-
-   (after having installed |tox|_ with ``pip install tox`` or ``pipx``).
-
-   You can also use |tox|_ to run several other pre-configured tasks in the
-   repository. Try ``tox -av`` to see a list of the available checks.
+    uv run pytest
 
 Submit your contribution
 ------------------------
@@ -177,59 +151,6 @@ Submit your contribution
 #. Go to the web page of your fork and click |contribute button|
    to send your changes for review.
 
-   .. todo:: if you are using GitHub, you can uncomment the following paragraph
-
-      Find more detailed information in `creating a PR`_. You might also want to open
-      the PR as a draft first and mark it as ready for review after the feedbacks
-      from the continuous integration (CI) system or any required fixes.
-
-
-Troubleshooting
----------------
-
-The following tips can be used when facing problems to build or test the
-package:
-
-#. Make sure to fetch all the tags from the upstream repository_.
-   The command ``git describe --abbrev=0 --tags`` should return the version you
-   are expecting. If you are trying to run CI scripts in a fork repository,
-   make sure to push all the tags.
-   You can also try to remove all the egg files or the complete egg folder, i.e.,
-   ``.eggs``, as well as the ``*.egg-info`` folders in the ``src`` folder or
-   potentially in the root of your project.
-
-#. Sometimes |tox|_ misses out when new dependencies are added, especially to
-   ``setup.cfg`` and ``docs/requirements.txt``. If you find any problems with
-   missing dependencies when running a command with |tox|_, try to recreate the
-   ``tox`` environment using the ``-r`` flag. For example, instead of::
-
-    tox -e docs
-
-   Try running::
-
-    tox -r -e docs
-
-#. Make sure to have a reliable |tox|_ installation that uses the correct
-   Python version (e.g., 3.7+). When in doubt you can run::
-
-    tox --version
-    # OR
-    which tox
-
-   If you have trouble and are seeing weird errors upon running |tox|_, you can
-   also try to create a dedicated `virtual environment`_ with a |tox|_ binary
-   freshly installed. For example::
-
-    virtualenv .venv
-    source .venv/bin/activate
-    .venv/bin/pip install tox
-    .venv/bin/tox -e all
-
-#. `Pytest can drop you`_ in an interactive session in the case an error occurs.
-   In order to do that you need to pass a ``--pdb`` option (for example by
-   running ``tox -- -k <NAME OF THE FALLING TEST> --pdb``).
-   You can also setup breakpoints manually instead of using the ``--pdb`` option.
-
 
 Maintainer tasks
 ================
@@ -237,15 +158,14 @@ Maintainer tasks
 Releases
 --------
 
-.. todo:: This section assumes you are using PyPI to publicly release your package.
-
-   If instead you are using a different/private package index, please update
-   the instructions accordingly.
-
 If you are part of the group of maintainers and have correct user permissions
 on PyPI_, the following steps can be used to release a new version for
 ``otcyto``:
 
+#. We make use of GitHub Actions defined in ``.github/workflows/publish.yml``
+   to automatically build the documentation and the distribution files.
+   If you want to test the release process, you can run the workflow manually
+   from the Actions tab in the GitHub web interface.
 #. Make sure all unit tests are successful.
 #. Tag the current commit on the main branch with a release tag, e.g., ``v1.2.3``.
 #. Push the new tag to the upstream repository_, e.g., ``git push upstream v1.2.3``
@@ -268,29 +188,20 @@ on PyPI_, the following steps can be used to release a new version for
 
 
 .. <-- start -->
-.. todo:: Please review and change the following definitions:
-
 .. |the repository service| replace:: GitHub
 .. |contribute button| replace:: "Create pull request"
 
-.. _repository: https://github.com/<USERNAME>/otcyto
-.. _issue tracker: https://github.com/<USERNAME>/otcyto/issues
+.. _repository: https://github.com/ggrlab/otcyto
+.. _issue tracker: https://github.com/ggrlab/otcyto/issues
 .. <-- end -->
 
 
 .. |virtualenv| replace:: ``virtualenv``
 .. |pre-commit| replace:: ``pre-commit``
-.. |tox| replace:: ``tox``
 
 
-.. _black: https://pypi.org/project/black/
-.. _CommonMark: https://commonmark.org/
-.. _contribution-guide.org: https://www.contribution-guide.org/
-.. _creating a PR: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
-.. _descriptive commit message: https://chris.beams.io/posts/git-commit
 .. _docstrings: https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html
-.. _first-contributions tutorial: https://github.com/firstcontributions/first-contributions
-.. _flake8: https://flake8.pycqa.org/en/stable/
+.. _ruff: https://docs.astral.sh/ruff/
 .. _git: https://git-scm.com
 .. _GitHub's fork and pull request workflow: https://guides.github.com/activities/forking/
 .. _guide created by FreeCodeCamp: https://github.com/FreeCodeCamp/how-to-contribute-to-open-source
@@ -303,8 +214,6 @@ on PyPI_, the following steps can be used to release a new version for
 .. _Pytest can drop you: https://docs.pytest.org/en/stable/how-to/failures.html#using-python-library-pdb-with-pytest
 .. _Python Software Foundation's Code of Conduct: https://www.python.org/psf/conduct/
 .. _reStructuredText: https://www.sphinx-doc.org/en/master/usage/restructuredtext/
-.. _Sphinx: https://www.sphinx-doc.org/en/master/
-.. _tox: https://tox.wiki/en/stable/
 .. _virtual environment: https://realpython.com/python-virtual-environments-a-primer/
 .. _virtualenv: https://virtualenv.pypa.io/en/stable/
 
