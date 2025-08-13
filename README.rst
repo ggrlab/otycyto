@@ -88,19 +88,13 @@ plot the OTD heatmap, and visualize point clouds.
     # Optional: plot Brenier map for first target
     otd.plot_brenier(0, 0).savefig("brenier_map.png")
 
-    # Overlay point clouds
-    figure_clouds(source, target_1).savefig("clouds.png")
-
 
 .. image:: examples/otd_matrix.png
    :alt: Optimal Transport Distance matrix
-   :width: 32%
+   :width: 42%
 .. image:: examples/brenier_map.png
    :alt: Brenier map visualization
-   :width: 32%
-.. image:: examples/clouds.png
-   :alt: Point cloud overlay
-   :width: 32%
+   :width: 42%
 
 
 Usage Notes

@@ -46,5 +46,5 @@ jobs:
         run: uvx twine check dist/*
       - name: Publish
         # The secret needs to be set under https://github.com/ggrlab/otycyto/settings/secrets/actions Repository secrets
-        run: uv publish -t ${{ secrets.TESTPYPI_TOKEN }} --publish-url https://test.pypi.org/legacy/
-        # run: uv publish -t ${{ secrets.PYPI_TOKEN }}
+        run: uv publish -t ${{ secrets.PYPI_TOKEN }}
+        # run: uv publish -t ${{ secrets.TESTPYPI_TOKEN }} --publish-url https://test.pypi.org/legacy/
