@@ -25,10 +25,11 @@
 
     # To create a release,
     # 1. Create a tag
-    git tag -a v0.0.4 -m "Release v0.0.4"
+    git tag -a v0.1.0 -m "Release v0.1.0"
     # 2. Then push
-    git push
-    # Then open Releases -> "Draft a new release" -> "Choose a tag" -> pick v0.0.3 -> Publish.
+    git push origin tag v0.1.0
+    # Then open Releases -> "Draft a new release" -> "Choose a tag" -> pick v0.1.0 -> Publish.
     # https://github.com/ggrlab/otycyto/releases/new
+    # Otherwise it is only a tag, not a release
 
 ```
