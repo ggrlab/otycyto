@@ -33,7 +33,7 @@ Documentation Improvements
 You can help improve ``otcyto`` docs by making them more readable and coherent, or
 by adding missing information and correcting mistakes.
 
-``otcyto`` documentation uses Sphinx_ as its main documentation compiler and reStructuredText_ as markup language.
+``otcyto`` documentation uses mkdocs_ as its main documentation compiler.
 This means that the docs are kept in the same repository as the project code, and
 that any documentation update is done in the same way was a code contribution.
 

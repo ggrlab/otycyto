@@ -8,3 +8,6 @@ A Python package for optimal transport–based normalization and comparison of f
 
 
 Please see the [Contributing guide](https://github.com/ggrlab/otycyto/blob/main/CONTRIBUTING.rst) for more information on how to contribute to this project.
+
+- Quick contribution guide: [QuickContribute](QuickContribute.md)
+- Initial package setup is documented in [PackageSetupOverview](PackageSetupOverview.md).
