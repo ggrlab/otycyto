@@ -3,7 +3,7 @@ name = "otcyto"
 dynamic = ["version"]
 description = "Optimal transport for cytometry data"
 readme = "README.rst"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 authors = [{ name = "gunthergl_r2", email = "gunthergl@gmx.net" }]
 license = { text = "MIT" }
 # Runtime deps (moved from setup.cfg)
@@ -14,7 +14,6 @@ dependencies = [
     "geomloss",
     "pandas",
     "pyarrow",
-    # No need for importlib-metadata on 3.11+; uv will handle markers if you keep it.
 ]
 
 [build-system]
